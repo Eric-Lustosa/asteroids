@@ -13,15 +13,20 @@ def main():
     print("Screen width:", SCREEN_WIDTH)
     print("Screen height", SCREEN_HEIGHT)
     pygame.init()
+
+    #Sets screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     running = True
     relog = pygame.time.Clock()
     dt = 0
+
+    #Sets groups for the Classes in order to be drawable/updatable in the screen
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
-
+    
+    #Adds in the containers in order to run the interactions
     Asteroid.containers = (asteroids, updatable, drawable)
     Shot.containers = (updatable, drawable, shots)
     Player.containers = (updatable, drawable)
@@ -29,7 +34,7 @@ def main():
     player = Player( SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
 
-
+    #Makes the loop that the runs the game
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -50,10 +55,6 @@ def main():
                 if asteroid.collision_check(shot) == True:
                     asteroid.split()
                     shot.kill()
-
-        
-            
-
 
         pygame.display.flip()
 

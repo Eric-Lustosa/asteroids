@@ -6,6 +6,8 @@ angle = random.uniform(20, 50)
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
+
+        #self.is_destroyed = False
         
 
     def draw(self, screen):
@@ -47,12 +49,4 @@ class Asteroid(CircleShape):
             Ast2.velocity = v2*1.2
 
             return
-
-
-
-
-
-
-        
-        
-
+    
