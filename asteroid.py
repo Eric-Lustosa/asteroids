@@ -16,6 +16,15 @@ class Asteroid(CircleShape):
     
     def update(self, dt):
         self.position += self.velocity * dt
+        buffer = self.radius * 2  # Give some extra space beyond screen
+        if (self.position.x < -buffer or 
+            self.position.x > SCREEN_WIDTH + buffer or
+            self.position.y < -buffer or
+            self.position.y > SCREEN_HEIGHT + buffer):
+            # If too far outside, remove from all groups
+            self.kill()
+    
+
 
     def split(self):
         angle = random.uniform(20, 50)

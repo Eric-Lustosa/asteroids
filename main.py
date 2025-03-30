@@ -6,6 +6,8 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 import sys
+from score import *
+
 
 
 def main():
@@ -13,12 +15,15 @@ def main():
     print("Screen width:", SCREEN_WIDTH)
     print("Screen height", SCREEN_HEIGHT)
     pygame.init()
+    pygame.font.init()
+    font = pygame.font.SysFont(None, 36)
 
     #Sets screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     running = True
     relog = pygame.time.Clock()
     dt = 0
+    score = 0
 
     #Sets groups for the Classes in order to be drawable/updatable in the screen
     updatable = pygame.sprite.Group()
@@ -46,16 +51,22 @@ def main():
         updatable.update(dt)
         # Draw everything
         screen.fill((0, 0, 0))
+
+
         for object in drawable:
             object.draw(screen)
         for asteroid in asteroids:
             if asteroid.collision_check(player) == True:
-                sys.exit("Game over!")
+                sys.exit(f"Sua pontuação foi de {score}, Game over!")
             for shot in shots:
                 if asteroid.collision_check(shot) == True:
+                    score += 1
                     asteroid.split()
                     shot.kill()
 
+        #draws the score
+        draw_score(screen, score)
+        #flips display
         pygame.display.flip()
 
 
